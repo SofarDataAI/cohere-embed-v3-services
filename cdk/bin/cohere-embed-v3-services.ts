@@ -19,3 +19,5 @@ new CohereEmbedV3ServicesStack(app, 'CohereEmbedV3ServicesStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+app.synth();
