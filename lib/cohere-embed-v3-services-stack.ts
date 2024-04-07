@@ -35,15 +35,6 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
         COHERE_EMBED_MODEL: props.cohereEmbedModel,
         DATA_INGESTION_API_KEY: props.dataIngestionApiKey,
       },
-      bundling: {
-        image: cdk.DockerImage.fromBuild(path.join(__dirname, '../../coreservices'), {
-          file: props.dockerfileName,
-          buildArgs: {
-            IMAGE_VERSION: props.imageVersion,
-            PORT : props.cdkDeployPort,
-          },
-        }),
-      },
     });
 
     // Configure Lambda Function URL
@@ -52,7 +43,7 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
       invokeMode: cdk.aws_lambda.InvokeMode.BUFFERED,
       cors: {
           allowedOrigins: ['*'],
-          allowedMethods: [lambda.HttpMethod.POST, lambda.HttpMethod.GET],
+          allowedMethods: [lambda.HttpMethod.POST],
           allowedHeaders: ['*'],
           allowCredentials: true,
       },
