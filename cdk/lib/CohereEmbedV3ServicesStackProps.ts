@@ -1,6 +1,9 @@
 import { StackProps } from "aws-cdk-lib";
 
-export interface CohereEmbedV3ServicesStackProps extends StackProps {
+export interface CohereEmbedV3ServicesStackProps extends StackProps, CohereEmbedV3Services {
+}
+
+export interface CohereEmbedV3Services {
     /**
      * The API key for Cohere services.
      */
