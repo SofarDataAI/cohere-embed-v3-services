@@ -1,9 +1,9 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { CohereEmbedV3ServicesStackProps } from './CohereEmbedV3ServicesStackProps';
 
 export class CohereEmbedV3ServicesStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: CohereEmbedV3ServicesStackProps) {
     super(scope, id, props);
 
     // The code that defines your stack goes here
