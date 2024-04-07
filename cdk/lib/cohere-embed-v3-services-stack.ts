@@ -15,7 +15,7 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
       runtime: cdk.aws_lambda.Runtime.PYTHON_3_11,
       entry: path.join(__dirname, '../../coreservices'),
       handler: "handler",
-      architecture: lambda.Architecture.ARM_64,
+      architecture: props.cdkDeployPlatform === `LINUX_ARM64` ? lambda.Architecture.ARM_64 : lambda.Architecture.X86_64,
       runtimeManagementMode: lambda.RuntimeManagementMode.AUTO,
       memorySize: 1024,
       timeout: cdk.Duration.seconds(60), // 60 seconds
@@ -48,4 +48,3 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
     });
   }
 }
-
