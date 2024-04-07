@@ -20,6 +20,7 @@ checkEnvVariables('APP_NAME',
     'PORT',
     'COHERE_API_KEY',
     'COHERE_EMBED_MODEL',
+    'DATA_INGESTION_API_KEY',
 );
 
 const appName = process.env.APP_NAME!;
