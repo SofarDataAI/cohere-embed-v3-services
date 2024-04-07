@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  core-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    ports:
+      - "8090:8090"
