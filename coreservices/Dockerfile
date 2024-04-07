@@ -1,13 +1,8 @@
-FROM public.ecr.aws/lambda/python:3.11-arm64
+FROM public.ecr.aws/docker/library/python:3.11.7-slim-bullseye
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.1 /lambda-adapter /opt/extensions/lambda-adapter
 
-# Copy requirements.txt
-COPY requirements.txt ${LAMBDA_TASK_ROOT}
-
-# Install the specified packages
+WORKDIR /app
+ADD . .
 RUN pip install -r requirements.txt
 
-# Copy function code
-COPY index.py ${LAMBDA_TASK_ROOT}
-
-# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
-CMD [ "index.handler" ]
+CMD ["python", "index.py"]
