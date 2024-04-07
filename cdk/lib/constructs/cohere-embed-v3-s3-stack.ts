@@ -15,11 +15,12 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class CohereEmbedV3S3Stack extends cdk.NestedStack {
     public readonly masterS3Bucket: cdk.aws_s3.Bucket;
+    public readonly uploadingS3Bucket: cdk.aws_s3.Bucket;
 
     constructor(scope: Construct, id: string, props: CohereEmbedV3S3StackProps) {
         super(scope, id, props);
         const removalPolicy = props.cdkDeployEnvironment === 'production' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
-        const uploadingS3Bucket = createCachedS3Bucket(this, `${props.resourcePrefix}-uploading-bucket`, 7);
+        this.uploadingS3Bucket = createCachedS3Bucket(this, `${props.resourcePrefix}-uploading-bucket`, 7);
         this.masterS3Bucket = createS3Bucket(this, `${props.resourcePrefix}-master-bucket`, removalPolicy);
         const eventBridgeDestination = new EventBridgeDestination(new EventBus(this, `${props.resourcePrefix}-EventBus`));
         // lambda function to transfer s3 object from uploadingS3Bucket to masterS3Bucket
@@ -43,31 +44,31 @@ export class CohereEmbedV3S3Stack extends cdk.NestedStack {
                         statements: [
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:ListBucket'],
-                                resources: [uploadingS3Bucket.bucketArn],
+                                resources: [this.uploadingS3Bucket.bucketArn],
                             }),
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:GetObject'],
-                                resources: [`${uploadingS3Bucket.bucketArn}/*`],
+                                resources: [`${this.uploadingS3Bucket.bucketArn}/*`],
                             }),
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:GetObjectAcl'],
-                                resources: [`${uploadingS3Bucket.bucketArn}/*`],
+                                resources: [`${this.uploadingS3Bucket.bucketArn}/*`],
                             }),
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:GetObjectTagging'],
-                                resources: [`${uploadingS3Bucket.bucketArn}/*`],
+                                resources: [`${this.uploadingS3Bucket.bucketArn}/*`],
                             }),
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:GetObjectVersion'],
-                                resources: [`${uploadingS3Bucket.bucketArn}/*`],
+                                resources: [`${this.uploadingS3Bucket.bucketArn}/*`],
                             }),
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:GetObjectVersionAcl'],
-                                resources: [`${uploadingS3Bucket.bucketArn}/*`],
+                                resources: [`${this.uploadingS3Bucket.bucketArn}/*`],
                             }),
                             new cdk.aws_iam.PolicyStatement({
                                 actions: ['s3:GetObjectVersionTagging'],
-                                resources: [`${uploadingS3Bucket.bucketArn}/*`],
+                                resources: [`${this.uploadingS3Bucket.bucketArn}/*`],
                             }),
                         ],
                     }),
@@ -215,6 +216,6 @@ export class CohereEmbedV3S3Stack extends cdk.NestedStack {
             onResult: eventBridgeDestination,
         });
         // add the uploadingS3Bucket as a source bucket for serverlessClamscan
-        serverlessClamscan.addSourceBucket(uploadingS3Bucket);
+        serverlessClamscan.addSourceBucket(this.uploadingS3Bucket);
     }
 }
