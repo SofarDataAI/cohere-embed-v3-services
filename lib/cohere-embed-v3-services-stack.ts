@@ -35,6 +35,11 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
         COHERE_EMBED_MODEL: props.cohereEmbedModel,
         DATA_INGESTION_API_KEY: props.dataIngestionApiKey,
       },
+      bundling: {
+        image: cdk.DockerImage.fromBuild(path.join(__dirname, '../src/lambdas/cohere-embed-v3'), {
+          file: props.dockerfileName,
+        }),
+      }
     });
 
     // Configure Lambda Function URL
