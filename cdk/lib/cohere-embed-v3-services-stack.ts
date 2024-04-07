@@ -23,8 +23,8 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
     const cohereEmbedV3LambdaFn = new PythonFunction(this, `${props.resourcePrefix}-${props.cdkDeployRegion}-cohereEmbedV3LambdaFn`, {
       functionName: `${props.resourcePrefix}-cohereEmbedV3LambdaFn`,
       runtime: cdk.aws_lambda.Runtime.PYTHON_3_11,
-      entry: path.join(__dirname, '../../coreservices'),
-      handler: "handler",
+      entry: path.join(__dirname, '../src/lambdas/cohere-embed-v3'),
+      handler: 'handler',
       architecture: props.cdkDeployPlatform === `LINUX_ARM64` ? lambda.Architecture.ARM_64 : lambda.Architecture.X86_64,
       runtimeManagementMode: lambda.RuntimeManagementMode.AUTO,
       memorySize: 1024,
