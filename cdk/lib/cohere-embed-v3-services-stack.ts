@@ -30,7 +30,7 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
     // Configure Lambda Function URL
     const cohereEmbedV3LambdaFnUrl = new cdk.aws_lambda.FunctionUrl(this, `${props.resourcePrefix}-${props.cdkDeployRegion}-cohereEmbedV3LambdaFnUrl`, {
       function: cohereEmbedV3LambdaFn,
-      invokeMode: cdk.aws_lambda.InvokeMode.RESPONSE_STREAM,
+      invokeMode: cdk.aws_lambda.InvokeMode.BUFFERED,
       cors: {
           allowedOrigins: ['*'],
           allowedMethods: [lambda.HttpMethod.POST, lambda.HttpMethod.GET],
