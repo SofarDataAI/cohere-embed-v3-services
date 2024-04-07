@@ -21,7 +21,7 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
 
     // lambda function to start a Textract job for analyzing tables in a document (Python version)
     const cohereEmbedV3LambdaFn = new PythonFunction(this, `${props.resourcePrefix}-${props.cdkDeployRegion}-cohereEmbedV3LambdaFn`, {
-      functionName: `${props.resourcePrefix}-${props.cdkDeployRegion}-cohereEmbedV3LambdaFn`,
+      functionName: `${props.resourcePrefix}-cohereEmbedV3LambdaFn`,
       runtime: cdk.aws_lambda.Runtime.PYTHON_3_11,
       entry: path.join(__dirname, '../../coreservices'),
       handler: "handler",
