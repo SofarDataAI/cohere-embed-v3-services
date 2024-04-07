@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@aws-cdk/aws-lambda-python-alpha": "^2.136.0-alpha.0",
+    "@types/aws-lambda": "^8.10.137",
     "aws-cdk-lib": "2.136.0",
     "cdk-ecr-deployment": "^3.0.44",
     "constructs": "^10.3.0",
