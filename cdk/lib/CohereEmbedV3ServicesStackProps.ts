@@ -9,6 +9,10 @@ export interface CohereEmbedV3Services {
      */
     readonly cohereApiKey: string;
     /**
+     * The model for Cohere services.
+     */
+    readonly cohereEmbedModel: string;
+    /**
      * The name of the application.
      */
     readonly appName: string;

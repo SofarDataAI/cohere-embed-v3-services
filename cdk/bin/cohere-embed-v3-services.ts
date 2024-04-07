@@ -19,12 +19,14 @@ checkEnvVariables('APP_NAME',
     'PLATFORM',
     'PORT',
     'COHERE_API_KEY',
+    'COHERE_EMBED_MODEL',
 );
 
 const appName = process.env.APP_NAME!;
 const deployEnvironment = process.env.ENVIRONMENT!;
 const deployRegion = process.env.CDK_DEPLOY_REGION!;
 const cohereApiKey = process.env.COHERE_API_KEY!;
+const cohereEmbedModel = process.env.COHERE_EMBED_MODEL!;
 const imageVersion = process.env.IMAGE_VERSION!;
 const ecrRepositoryName = process.env.ECR_REPOSITORY_NAME!;
 const dockerfileName = process.env.DOCKERFILE_NAME!;
@@ -42,6 +44,7 @@ new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironm
   },
   appName,
   cohereApiKey,
+  cohereEmbedModel,
   imageVersion,
   ecrRepositoryName,
   dockerfileName,
