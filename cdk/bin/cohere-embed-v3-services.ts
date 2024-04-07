@@ -32,6 +32,7 @@ const ecrRepositoryName = process.env.ECR_REPOSITORY_NAME!;
 const dockerfileName = process.env.DOCKERFILE_NAME!;
 const port = process.env.PORT!;
 const platform = process.env.PLATFORM!;
+const dataIngestionApiKey = process.env.DATA_INGESTION_API_KEY!;
 
 const app = new cdk.App();
 new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironment}-CohereEmbedV3ServicesStack`, {
@@ -45,6 +46,7 @@ new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironm
   appName,
   cohereApiKey,
   cohereEmbedModel,
+  dataIngestionApiKey,
   imageVersion,
   ecrRepositoryName,
   dockerfileName,

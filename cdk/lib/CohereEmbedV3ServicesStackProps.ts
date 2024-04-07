@@ -13,6 +13,10 @@ export interface CohereEmbedV3Services {
      */
     readonly cohereEmbedModel: string;
     /**
+     * The API key for data ingestion services.
+     */
+    readonly dataIngestionApiKey: string;
+    /**
      * The name of the application.
      */
     readonly appName: string;
