@@ -10,5 +10,7 @@ declare module NodeJS {
         PLATFORM: string;
         PORT: string | undefined;
         COHERE_API_KEY: string | undefined;
+        COHERE_EMBED_MODEL: string | undefined;
+        DATA_INGESTION_API_KEY: string | undefined;
     }
 }
