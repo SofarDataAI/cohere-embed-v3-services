@@ -5,5 +5,7 @@ WORKDIR /var/task
 COPY requirements.txt ./
 RUN python -m pip install -r requirements.txt
 
+EXPOSE 8090
+
 COPY *.py ./
-CMD exec uvicorn --port=$PORT index:app
+CMD ["uvicorn", "index:app", "--host", "0.0.0.0", "--port", "8090"]
