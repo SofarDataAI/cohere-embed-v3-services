@@ -4,7 +4,7 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import * as dotenv from 'dotenv';
 import { checkEnvVariables } from '../utils/check-environment-variables';
-import { CohereEmbedV3ServicesStack } from '../lib/cohere-embed-v3-lambda-services-stack';
+import { CohereEmbedV3ServicesStack } from '../lib/cohere-embed-v3-services-stack';
 
 dotenv.config(); // Load environment variables from .env file
 
