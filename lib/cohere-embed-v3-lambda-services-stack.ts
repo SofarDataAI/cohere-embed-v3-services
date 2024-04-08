@@ -20,11 +20,8 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
     super(scope, id, props);
 
     // lambda function to start a Textract job for analyzing tables in a document (Python version)
-    const cohereEmbedV3LambdaFn = new PythonFunction(this, `${props.resourcePrefix}-${props.cdkDeployRegion}-cohereEmbedV3LambdaFn`, {
+    const cohereEmbedV3LambdaFn = new lambda.DockerImageFunction(this, `${props.resourcePrefix}-${props.cdkDeployRegion}-cohereEmbedV3LambdaFn`, {
       functionName: `${props.resourcePrefix}-cohereEmbedV3LambdaFn`,
-      runtime: cdk.aws_lambda.Runtime.PYTHON_3_11,
-      entry: path.join(__dirname, '../src/lambdas/cohere-embed-v3'),
-      handler: 'index.handler',
       architecture: props.cdkDeployPlatform === `LINUX_ARM64` ? lambda.Architecture.ARM_64 : lambda.Architecture.X86_64,
       runtimeManagementMode: lambda.RuntimeManagementMode.AUTO,
       memorySize: 1024,
@@ -35,12 +32,6 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
         COHERE_EMBED_MODEL: props.cohereEmbedModel,
         DATA_INGESTION_API_KEY: props.dataIngestionApiKey,
       },
-      bundling: {
-        image: cdk.DockerImage.fromBuild(path.join(__dirname, '../src/lambdas/cohere-embed-v3'), {
-          file: props.dockerfileName,
-          platform: `linux/amd64/v3`,
-        }),
-      }
     });
 
     // Configure Lambda Function URL
