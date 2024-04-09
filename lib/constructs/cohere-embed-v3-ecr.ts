@@ -7,7 +7,7 @@ import * as ecrDeploy from 'cdk-ecr-deployment';
 import { CdkErcDeploymentStackProps } from './CdkEcrDeploymentStackProps';
 
 export class CdkEcrDeploymentStack extends cdk.NestedStack {
-    public ecrRepository: cdk.aws_ecr.Repository;
+    public readonly ecrRepository: cdk.aws_ecr.Repository;
 
     /**
      * Constructor for CdkEcrDeploymentStack.

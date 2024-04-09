@@ -19,7 +19,7 @@ import { CohereEmbedVpcStackProps } from './CohereEmbedVpcStackProps';
  */
 
 export class CohereEmbedVpcStack extends cdk.NestedStack {
-    public cohereVpc: cdk.aws_ec2.IVpc;
+    public readonly cohereVpc: cdk.aws_ec2.IVpc;
 
     constructor(scope: Construct, id: string, props: CohereEmbedVpcStackProps) {
         super(scope, id, props);
