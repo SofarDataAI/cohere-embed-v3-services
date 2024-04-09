@@ -26,7 +26,7 @@ export class CohereEmbedVpcStack extends cdk.NestedStack {
 
         // create vpc
         const vpcName = `${props.resourcePrefix}-VPC`;
-        const cohereVpc = new ec2.Vpc(this, vpcName, {
+        this.cohereVpc = new ec2.Vpc(this, vpcName, {
                 ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'), //IPs in Range - 65,536
                 natGateways: 3, // for high availability
                 maxAzs: 3, // for high availability
@@ -47,14 +47,14 @@ export class CohereEmbedVpcStack extends cdk.NestedStack {
         });
 
         // apply removal policy to all vpc and subnet resources
-        cohereVpc.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
-        for (const subnet of cohereVpc.privateSubnets) {
+        this.cohereVpc.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+        for (const subnet of this.cohereVpc.privateSubnets) {
             subnet.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
         }
-        for (const subnet of cohereVpc.isolatedSubnets) {
+        for (const subnet of this.cohereVpc.isolatedSubnets) {
             subnet.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
         }
-        for (const subnet of cohereVpc.publicSubnets) {
+        for (const subnet of this.cohereVpc.publicSubnets) {
             subnet.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
         }
 
@@ -76,7 +76,7 @@ export class CohereEmbedVpcStack extends cdk.NestedStack {
         });
 
         new ec2.FlowLog(this, `${props.resourcePrefix}-VpcFlowLog`, {
-            resourceType: ec2.FlowLogResourceType.fromVpc(cohereVpc),
+            resourceType: ec2.FlowLogResourceType.fromVpc(this.cohereVpc),
             destination: ec2.FlowLogDestination.toCloudWatchLogs(vpcFlowLogGroup, vpcFlowLogRole),
             trafficType: ec2.FlowLogTrafficType.ALL,
         });
