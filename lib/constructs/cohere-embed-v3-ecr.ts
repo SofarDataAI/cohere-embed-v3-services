@@ -35,7 +35,7 @@ export class CdkEcrDeploymentStack extends cdk.NestedStack {
             buildArgs: props.dockerBuildArgs === undefined ? undefined : {
                 ...props.dockerBuildArgs
             },
-            cacheDisabled: true, // always build the image from scratchs
+            cacheDisabled: props.cdkDeployEnvironment === 'production' ? true : false, // always build the image from scratchs if only production environment
         };
         const dockerImageAsset = new DockerImageAsset(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-DockerImageAsset`, dockerImageAssetProps);
 

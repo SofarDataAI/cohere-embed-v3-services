@@ -1,6 +1,7 @@
 llama-index-llms-cohere==0.1.6
 llama-index-embeddings-cohere==0.1.5
 llama-index==0.10.27
+llama-index-core==0.10.27
 nest_asyncio==1.6.0
 openai==1.16.2
 pillow==10.3.0
