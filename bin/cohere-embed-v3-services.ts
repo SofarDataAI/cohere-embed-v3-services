@@ -48,7 +48,7 @@ new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironm
   cohereApiKey,
   cohereEmbedModel,
   dataIngestionApiKey,
-  imageVersion,
+  ecrRepositoryImageTag: imageVersion,
   ecrRepositoryName,
   dockerfileName,
   cdkDeployPort: port,
