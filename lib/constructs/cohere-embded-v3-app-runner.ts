@@ -40,9 +40,9 @@ export class CdkCohereEmbedV3AppRunnerStack extends cdk.NestedStack {
         const httpsSecGrp = ec2.SecurityGroup.fromSecurityGroupId(this, `${props.resourcePrefix}-HttpsSecGrp`, httpsSecGrpID);
 
         // define a security group named appRunnerSecGrp
-        const appRunnerSecGrp = new ec2.SecurityGroup(this, `${props.resourcePrefix}-appRunnerSecGrp-cx-feature-extract`, {
+        const appRunnerSecGrp = new ec2.SecurityGroup(this, `${props.resourcePrefix}-appRunnerSecGrp`, {
             vpc: existingVpc,
-            securityGroupName: `${props.resourcePrefix}-appRunnerSecGrp-cx-feature-extract`,
+            securityGroupName: `${props.resourcePrefix}-appRunnerSecGrp`,
             allowAllOutbound: true,
             description: `${props.resourcePrefix}-appRunnerSecGrp`,
         });
@@ -173,7 +173,7 @@ export class CdkCohereEmbedV3AppRunnerStack extends cdk.NestedStack {
         // apply removal policy to appRunnerTaskRole
         appRunnerTaskRole.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
-        const containerPort = parseInt(props.dockerRunArgs.PORT);
+        const containerPort = parseInt(props.cdkDeployPort);
         const apprunnerService = new apprunner.Service(this, `${props.resourcePrefix}-AppRunner-Service`, {
             cpu: Cpu.ONE_VCPU,
             memory: Memory.TWO_GB,
