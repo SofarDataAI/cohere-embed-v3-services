@@ -19,7 +19,7 @@ import { CohereEmbedVpcStackProps } from './CohereEmbedVpcStackProps';
  */
 
 export class CohereEmbedVpcStack extends cdk.NestedStack {
-    public cxVpc: cdk.aws_ec2.IVpc;
+    public cohereVpc: cdk.aws_ec2.IVpc;
 
     constructor(scope: Construct, id: string, props: CohereEmbedVpcStackProps) {
         super(scope, id, props);
@@ -83,7 +83,7 @@ export class CohereEmbedVpcStack extends cdk.NestedStack {
 
         // print out vpc id
         new cdk.CfnOutput(this, `${props.resourcePrefix}-VPC-ID-Export`, {
-            value: this.cxVpc.vpcId,
+            value: this.cohereVpc.vpcId,
             exportName: `${props.resourcePrefix}-VPC-ID-Export`,
             description: 'Infrastructure VPC ID.',
         });
