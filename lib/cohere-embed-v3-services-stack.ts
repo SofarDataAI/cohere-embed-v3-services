@@ -2,6 +2,8 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { CohereEmbedV3ServicesStackProps } from './CohereEmbedV3ServicesStackProps';
 import { CohereEmbedVpcStack } from './constructs/cohere-embed-v3-vpc';
+import { CdkEcrDeploymentStack } from './constructs/cohere-embed-v3-ecr';
+import { CdkCohereEmbedV3AppRunnerStack } from './constructs/cohere-embded-v3-app-runner';
 
 /**
  * The `CohereEmbedV3ServicesStack` class defines the AWS infrastructure as code for the Cohere Embed V3 Services.
@@ -19,8 +21,33 @@ export class CohereEmbedV3ServicesStack extends cdk.Stack {
 
     const vpcStack = new CohereEmbedVpcStack(this, `${props.resourcePrefix}-VpcStack`, {
       ...props,
+      description: 'VPC for Cohere Embed V3.',
+    });
+    const vpc = vpcStack.cohereVpc;
+
+    const ecrStack = new CdkEcrDeploymentStack(this, `${props.resourcePrefix}-EcrStack`, {
+      ...props,
+      description: 'ECR repository for Cohere Embed V3.',
+    });
+    const ecrRepository = ecrStack.ecrRepository;
+
+    const appRunnerStack = new CdkCohereEmbedV3AppRunnerStack(this, `${props.resourcePrefix}-AppRunnerStack`, {
+      ...props,
+      vpc,
+      ecrRepository,
+      dockerRunArgs: {
+        COHERE_API_KEY: props.cohereApiKey,
+        COHERE_EMBED_MODEL: props.cohereEmbedModel,
+        DATA_INGESTION_API_KEY: props.dataIngestionApiKey,
+      },
+      description: 'App Runner service for Cohere Embed V3.',
     });
 
-    const vpc = vpcStack.cohereVpc;
+    // export the App Runner service URL
+    new cdk.CfnOutput(this, 'AppRunnerServiceURL', {
+      value: appRunnerStack.APP_RUNNER_SERVICE_URL,
+      description: 'The URL of the App Runner service.',
+      exportName: `${props.resourcePrefix}-AppRunnerServiceURL`,
+    });
   }
 }

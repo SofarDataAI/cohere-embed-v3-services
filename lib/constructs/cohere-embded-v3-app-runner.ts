@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as apprunner from '@aws-cdk/aws-apprunner-alpha';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import { CdkCohereEmbedV3AppRunnerStackProps } from './CdkCohereEmbedV3AppRunnerStackProps';
+import { CdkCohereEmbedV3AppRunnerStackProps } from './CdkAppRunnerStackProps';
 import { Cpu, Memory } from '@aws-cdk/aws-apprunner-alpha';
 
 /**

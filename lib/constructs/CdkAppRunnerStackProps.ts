@@ -18,13 +18,13 @@ export interface CdkCohereEmbedV3DockerRunArgTyped {
     /**
      * The API key for Cohere services.
      */
-    readonly cohereApiKey: string;
+    readonly COHERE_API_KEY: string;
     /**
      * The model for Cohere services.
      */
-    readonly cohereEmbedModel: string;
+    readonly COHERE_EMBED_MODEL: string;
     /**
      * The API key for data ingestion services.
      */
-    readonly dataIngestionApiKey: string;
+    readonly DATA_INGESTION_API_KEY: string;
 }
