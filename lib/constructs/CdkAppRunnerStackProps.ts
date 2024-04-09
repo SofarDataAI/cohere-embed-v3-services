@@ -11,6 +11,9 @@ export interface CdkCohereEmbedV3AppRunnerStackProps extends NestedStackProps, C
      * The ECR repository
      */
     readonly ecrRepository: cdk.aws_ecr.Repository;
+    /**
+     * The App Runner docker run arguments.
+     */
     readonly dockerRunArgs: CdkCohereEmbedV3DockerRunArgTyped,
 }
 
