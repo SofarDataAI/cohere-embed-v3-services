@@ -7,7 +7,7 @@ import * as ecrDeploy from 'cdk-ecr-deployment';
 import { CdkErcDeploymentStackProps } from './CdkEcrDeploymentStackProps';
 
 export class CdkEcrDeploymentStack extends cdk.NestedStack {
-    public ecrRepository: cdk.aws_ecr.Repository;
+    public readonly ecrRepository: cdk.aws_ecr.Repository;
 
     /**
      * Constructor for CdkEcrDeploymentStack.
@@ -19,8 +19,9 @@ export class CdkEcrDeploymentStack extends cdk.NestedStack {
     constructor(scope: Construct, id: string, props: CdkErcDeploymentStackProps) {
         super(scope, id, props);
 
+        const cdkDeployPlatformString = props.cdkDeployPlatform === `LINUX_ARM64` ? `arm64` : `amd64`;
         console.log(`cdkDeployPlatform: ${props.cdkDeployPlatform}`);
-        this.ecrRepository = new ecr.Repository(this, `${props.resourcePrefix}-${props.cdkDeployPlatform}-ERCRepository`, {
+        this.ecrRepository = new ecr.Repository(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ERCRepository`, {
             repositoryName: `${props.ecrRepositoryName}`,
             removalPolicy: cdk.RemovalPolicy.DESTROY,
             emptyOnDelete: true,
@@ -34,31 +35,31 @@ export class CdkEcrDeploymentStack extends cdk.NestedStack {
             buildArgs: props.dockerBuildArgs === undefined ? undefined : {
                 ...props.dockerBuildArgs
             },
-            cacheDisabled: true, // always build the image from scratchs
+            cacheDisabled: props.cdkDeployEnvironment === 'production' ? true : false, // always build the image from scratchs if only production environment
         };
-        const dockerImageAsset = new DockerImageAsset(this, `${props.resourcePrefix}-${props.cdkDeployPlatform}-DockerImageAsset`, dockerImageAssetProps);
+        const dockerImageAsset = new DockerImageAsset(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-DockerImageAsset`, dockerImageAssetProps);
 
-        new ecrDeploy.ECRDeployment(this, `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRDeployment`, {
+        new ecrDeploy.ECRDeployment(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRDeployment`, {
             src: new ecrDeploy.DockerImageName(dockerImageAsset.imageUri),
             dest: new ecrDeploy.DockerImageName(`${this.ecrRepository.repositoryUri}:${props.ecrRepositoryImageTag}`),
         });
 
         // print out ecrRepository arn
-        new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRRepositoryArn`, {
+        new cdk.CfnOutput(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryArn`, {
             value: this.ecrRepository.repositoryArn,
-            exportName: `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRRepositoryArn`,
+            exportName: `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryArn`,
         });
 
         // print out ecrRepository uri
-        new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRRepositoryUri`, {
+        new cdk.CfnOutput(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryUri`, {
             value: this.ecrRepository.repositoryUri,
-            exportName: `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRRepositoryUri`,
+            exportName: `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryUri`,
         });
 
         // print out ecrRepository respository name
-        new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRRepositoryName`, {
+        new cdk.CfnOutput(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryName`, {
             value: this.ecrRepository.repositoryName,
-            exportName: `${props.resourcePrefix}-${props.cdkDeployPlatform}-ECRRepositoryName`,
+            exportName: `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryName`,
         });
     }
 }
