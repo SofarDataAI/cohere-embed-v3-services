@@ -19,8 +19,9 @@ export class CdkEcrDeploymentStack extends cdk.NestedStack {
     constructor(scope: Construct, id: string, props: CdkErcDeploymentStackProps) {
         super(scope, id, props);
 
-        console.log(`cdkDeployPlatform: ${props.cdkDeployPlatform.toLowerCase()}`);
-        this.ecrRepository = new ecr.Repository(this, `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ERCRepository`, {
+        const cdkDeployPlatformString = props.cdkDeployPlatform === `LINUX_ARM64` ? `arm64` : `amd64`;
+        console.log(`cdkDeployPlatform: ${props.cdkDeployPlatform}`);
+        this.ecrRepository = new ecr.Repository(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ERCRepository`, {
             repositoryName: `${props.ecrRepositoryName}`,
             removalPolicy: cdk.RemovalPolicy.DESTROY,
             emptyOnDelete: true,
@@ -36,29 +37,29 @@ export class CdkEcrDeploymentStack extends cdk.NestedStack {
             },
             cacheDisabled: true, // always build the image from scratchs
         };
-        const dockerImageAsset = new DockerImageAsset(this, `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-DockerImageAsset`, dockerImageAssetProps);
+        const dockerImageAsset = new DockerImageAsset(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-DockerImageAsset`, dockerImageAssetProps);
 
-        new ecrDeploy.ECRDeployment(this, `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRDeployment`, {
+        new ecrDeploy.ECRDeployment(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRDeployment`, {
             src: new ecrDeploy.DockerImageName(dockerImageAsset.imageUri),
             dest: new ecrDeploy.DockerImageName(`${this.ecrRepository.repositoryUri}:${props.ecrRepositoryImageTag}`),
         });
 
         // print out ecrRepository arn
-        new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRRepositoryArn`, {
+        new cdk.CfnOutput(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryArn`, {
             value: this.ecrRepository.repositoryArn,
-            exportName: `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRRepositoryArn`,
+            exportName: `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryArn`,
         });
 
         // print out ecrRepository uri
-        new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRRepositoryUri`, {
+        new cdk.CfnOutput(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryUri`, {
             value: this.ecrRepository.repositoryUri,
-            exportName: `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRRepositoryUri`,
+            exportName: `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryUri`,
         });
 
         // print out ecrRepository respository name
-        new cdk.CfnOutput(this, `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRRepositoryName`, {
+        new cdk.CfnOutput(this, `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryName`, {
             value: this.ecrRepository.repositoryName,
-            exportName: `${props.resourcePrefix}-${props.cdkDeployPlatform.toLowerCase()}-ECRRepositoryName`,
+            exportName: `${props.resourcePrefix}-${cdkDeployPlatformString}-ECRRepositoryName`,
         });
     }
 }
