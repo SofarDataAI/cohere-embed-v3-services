@@ -22,7 +22,10 @@ def hello_world() -> dict:
 
 
 @app.post("/embed")
-def embed_text(text: str, input_type: str, embedding_type: str = "float") -> dict:
+def embed_text(request: dict) -> dict:
+    text = request['text']
+    input_type = request['input_type']
+    embedding_type = request.get('embedding_type', 'float')
     """
     A function to embed text using the Cohere API.
 
