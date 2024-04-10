@@ -27,13 +27,15 @@ def embed_text(request: dict) -> dict:
     input_type = request['input_type']
     embedding_type = request.get('embedding_type', 'float')
     """
-    A function to embed text using the Cohere API.
+        A function to embed text using the Cohere API.
 
-    Args:
-        text (str): The text to embed.
+        Args:
+            text (str): The text to embed.
+            input_type (str): The type of input data.
+            embedding_type (str): The type of embedding to return.
 
-    Returns:
-        dict: A dictionary with the embeddings.
+        Returns:
+            dict: A dictionary with the embeddings.
     """
     embed_model = CohereEmbedding(
         cohere_api_key=COHERE_API_KEY,
