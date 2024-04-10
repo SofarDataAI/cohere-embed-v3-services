@@ -1,11 +1,6 @@
 import os
 from fastapi import FastAPI
-from fastapi import Request, HTTPException
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from llama_index.embeddings.cohere import CohereEmbedding
-
-security = HTTPBearer()
-
 
 app = FastAPI()
 
