@@ -40,6 +40,10 @@ export interface CohereEmbedV3Services {
      * The AWS region where the stack will be deployed.
      */
     readonly cdkDeployRegion: string;
+    /**
+     * The string representation of the platform for the deployment.
+     */
+    readonly cdkDeployPlatformString: string;
 }
 
 export interface CohereEmbedV3ServiceArgs {
