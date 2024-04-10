@@ -9,6 +9,6 @@ PyMuPDF==1.24.1
 tiktoken==0.6.0
 llama_parse==0.4.0
 llamaindex_py_client==0.1.16
-uvicorn==0.29.0
+uvicorn==0.28.0
 fastapi==0.110.1
 starlette==0.37.2
