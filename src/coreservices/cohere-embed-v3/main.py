@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI
+from llama_index.embeddings.cohere import CohereEmbedding
 
 # extract the environment variables
 COHERE_API_KEY = os.environ['COHERE_API_KEY']
@@ -18,3 +19,24 @@ def hello_world() -> dict:
         dict: A dictionary with a greeting.
     """
     return {"Hello": "World"}
+
+
+@app.post("/embed")
+def embed_text(text: str, input_type: str) -> dict:
+    """
+    A function to embed text using the Cohere API.
+
+    Args:
+        text (str): The text to embed.
+
+    Returns:
+        dict: A dictionary with the embeddings.
+    """
+    embed_model = CohereEmbedding(
+        cohere_api_key=COHERE_API_KEY,
+        model_name=COHERE_EMBED_MODEL,
+        input_type=input_type,
+    )
+
+    embeddings = embed_model.get_text_embedding(text)
+    return {"embeddings": embeddings}
