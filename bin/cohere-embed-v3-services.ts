@@ -32,8 +32,9 @@ const imageVersion = process.env.IMAGE_VERSION!;
 const ecrRepositoryName = process.env.ECR_REPOSITORY_NAME!;
 const dockerfileName = process.env.DOCKERFILE_NAME!;
 const port = process.env.PORT!;
-const platform = process.env.PLATFORM!;
+const cdkDeployPlatform = process.env.PLATFORM!;
 const dataIngestionApiKey = process.env.DATA_INGESTION_API_KEY!;
+const cdkDeployPlatformString = cdkDeployPlatform === `LINUX_ARM64` ? `arm64` : `amd64`;
 
 const app = new cdk.App();
 new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironment}-CohereEmbedV3ServicesStack`, {
@@ -52,9 +53,10 @@ new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironm
   ecrRepositoryName,
   dockerfileName,
   cdkDeployPort: port,
-  cdkDeployPlatform: platform,
+  cdkDeployPlatformString,
+  cdkDeployPlatform: cdkDeployPlatform,
   description: `${appName}-${deployRegion}-${deployEnvironment}-CohereEmbedV3ServicesStack`,
-  stackName: `${appName}-${deployRegion}-${deployEnvironment}-CohereEmbedV3ServicesStack`,
+  stackName: `${deployEnvironment}-${cdkDeployPlatformString}-CohereEmbedV3ServicesStack`,
 });
 
 app.synth();
