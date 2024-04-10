@@ -1,13 +1,17 @@
 import os
 from fastapi import FastAPI
+from fastapi import Request, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from llama_index.embeddings.cohere import CohereEmbedding
+
+security = HTTPBearer()
+
+
+app = FastAPI()
 
 # extract the environment variables
 COHERE_API_KEY = os.environ['COHERE_API_KEY']
 COHERE_EMBED_MODEL = os.environ['COHERE_EMBED_MODEL']
-DATA_INGESTION_API_KEY = os.environ['DATA_INGESTION_API_KEY']
-
-app = FastAPI()
 
 
 @app.get("/")
