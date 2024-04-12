@@ -12,5 +12,7 @@ declare module NodeJS {
         COHERE_API_KEY: string | undefined;
         COHERE_EMBED_MODEL: string | undefined;
         DATA_INGESTION_API_KEY: string | undefined;
+        CPU_TYPE: string | undefined;
+        MEMORY_TYPE: string | undefined;
     }
 }
