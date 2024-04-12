@@ -1,3 +1,13 @@
+## 2024-04-12
+
+### Added
+- Added support for configuring the CPU and memory types for deployment in the CDK app runner.
+- Added `CPU_TYPE` and `MEMORY_TYPE` environment variables in `bin/cohere-embed-v3-services.ts`.
+- Added `cdkDeployCpuType` and `cdkDeployMemoryType` properties in `lib/CohereEmbedV3ServicesStackProps.ts`.
+- Added `cdkDeployCpuType` and `cdkDeployMemoryType` variables in `lib/constructs/cohere-embded-v3-app-runner.ts`.
+- Added `CPU_TYPE` and `MEMORY_TYPE` environment variables in `process-env.d.ts`.
+- Added `parsingCpuType` and `parsingMemoryType` functions in `utils/check-hardware-input.ts`.
+
 ## 2024-04-10
 
 ### Added

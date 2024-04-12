@@ -44,6 +44,14 @@ export interface CohereEmbedV3Services {
      * The string representation of the platform for the deployment.
      */
     readonly cdkDeployPlatformString: string;
+    /**
+     * The cpu type for the deployment.
+     */
+    readonly cdkDeployCpuType: string;
+    /**
+     * The memory type for the deployment.
+     */
+    readonly cdkDeployMemoryType: string;
 }
 
 export interface CohereEmbedV3ServiceArgs {
