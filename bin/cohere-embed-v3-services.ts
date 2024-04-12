@@ -21,6 +21,8 @@ checkEnvVariables('APP_NAME',
     'COHERE_API_KEY',
     'COHERE_EMBED_MODEL',
     'DATA_INGESTION_API_KEY',
+    'CPU_TYPE',
+    'MEMORY_TYPE',
 );
 
 const appName = process.env.APP_NAME!;
@@ -35,6 +37,8 @@ const port = process.env.PORT!;
 const cdkDeployPlatform = process.env.PLATFORM!;
 const dataIngestionApiKey = process.env.DATA_INGESTION_API_KEY!;
 const cdkDeployPlatformString = cdkDeployPlatform === `LINUX_ARM64` ? `arm64` : `amd64`;
+const cdkDeployCpuType = process.env.CPU_TYPE!;
+const cdkDeployMemoryType = process.env.MEMORY_TYPE!;
 
 const app = new cdk.App();
 new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironment}-CohereEmbedV3ServicesStack`, {
@@ -54,6 +58,8 @@ new CohereEmbedV3ServicesStack(app, `${appName}-${deployRegion}-${deployEnvironm
   dockerfileName,
   cdkDeployPort: port,
   cdkDeployPlatformString,
+  cdkDeployCpuType,
+  cdkDeployMemoryType,
   cdkDeployPlatform: cdkDeployPlatform,
   description: `${appName}-${deployRegion}-${deployEnvironment}-CohereEmbedV3ServicesStack`,
   stackName: `${deployEnvironment}-${cdkDeployPlatformString}-CohereEmbedV3ServicesStack`,
