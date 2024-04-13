@@ -33,8 +33,6 @@ export function parseMemoryType(memoryType: string): Memory {
     switch (memoryType) {
         case 'TWO_GB':
             return Memory.TWO_GB;
-        case 'THREE_GB':
-            return Memory.THREE_GB;
         case 'FOUR_GB':
             return Memory.FOUR_GB;
         case 'SIX_GB':
@@ -47,8 +45,6 @@ export function parseMemoryType(memoryType: string): Memory {
             return Memory.HALF_GB;
         case 'ONE_GB':
             return Memory.ONE_GB;
-        case 'HALF_GB':
-            return Memory.HALF_GB;
         case 'THREE_GB':
             return Memory.THREE_GB;
         default:
