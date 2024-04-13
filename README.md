@@ -18,3 +18,17 @@ Before running the application locally, you need to configure your environment v
 1. Copy the `.env.example` file to a new file named `.env` in the same directory.
 2. Open the `.env` file and fill in the values for the environment variables as per your setup. This includes setting up the `COHERE_API_KEY`, `DATA_INGESTION_API_KEY`, and any other variables you might need to customize for your local development environment.
 3. Ensure the `.env` file is correctly referenced in your application's configuration to load these environment variables.
+
+## Demo
+
+### Local Demo with Docker
+
+To see a demo of the service running locally with Docker, refer to the screenshot below:
+
+![Local Demo with Docker](assets/demo_local_host.png)
+
+### AWS App Runner Demo
+
+After deploying the service on AWS with App Runner, you can see the demo as shown in the screenshot below:
+
+![AWS App Runner Demo](assets/demo_app_runner_aws.png)
