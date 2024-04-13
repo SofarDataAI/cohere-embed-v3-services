@@ -6,7 +6,7 @@ import { Cpu, Memory } from '@aws-cdk/aws-apprunner-alpha';
  * @param cpuType The CPU type as a string.
  * @returns The corresponding Cpu enum value.
  */
-export function parsingCpuType(cpuType: string): Cpu {
+export function parseCpuType(cpuType: string): Cpu {
     switch (cpuType) {
         case 'ONE_VCPU':
             return Cpu.ONE_VCPU;
@@ -29,12 +29,10 @@ export function parsingCpuType(cpuType: string): Cpu {
  * @param memoryType The memory type as a string.
  * @returns The corresponding Memory enum value.
  */
-export function parsingMemoryType(memoryType: string): Memory {
+export function parseMemoryType(memoryType: string): Memory {
     switch (memoryType) {
         case 'TWO_GB':
             return Memory.TWO_GB;
-        case 'THREE_GB':
-            return Memory.THREE_GB;
         case 'FOUR_GB':
             return Memory.FOUR_GB;
         case 'SIX_GB':
@@ -47,8 +45,6 @@ export function parsingMemoryType(memoryType: string): Memory {
             return Memory.HALF_GB;
         case 'ONE_GB':
             return Memory.ONE_GB;
-        case 'HALF_GB':
-            return Memory.HALF_GB;
         case 'THREE_GB':
             return Memory.THREE_GB;
         default:
