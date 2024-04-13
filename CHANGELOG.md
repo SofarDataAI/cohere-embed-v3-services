@@ -1,3 +1,12 @@
+## 2024-04-13
+
+### Changed
+- Renamed `parsingCpuType` function to `parseCpuType`.
+- Renamed `parsingMemoryType` function to `parseMemoryType`.
+- Updated references to the renamed functions.
+- Updated CPU_TYPE and MEMORY_TYPE values in the example file.
+- Updated readme with a demo section showcasing local and AWS App Runner demos.
+
 ## 2024-04-12
 
 ### Added

@@ -5,7 +5,7 @@ import * as apprunner from '@aws-cdk/aws-apprunner-alpha';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { CdkCohereEmbedV3AppRunnerStackProps } from './CdkAppRunnerStackProps';
 import { Cpu, Memory } from '@aws-cdk/aws-apprunner-alpha';
-import { parsingCpuType, parsingMemoryType } from '../../utils/check-hardware-input';
+import { parseCpuType, parseMemoryType } from '../../utils/check-hardware-input';
 
 /**
  * The CdkCohereEmbedV3AppRunnerStack class is responsible for deploying an AWS App Runner service
@@ -107,8 +107,8 @@ export class CdkCohereEmbedV3AppRunnerStack extends cdk.NestedStack {
         // apply removal policy to appRunnerTaskRole
         appRunnerTaskRole.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
-        const cpu = parsingCpuType(props.cdkDeployCpuType);
-        const memory = parsingMemoryType(props.cdkDeployMemoryType);
+        const cpu = parseCpuType(props.cdkDeployCpuType);
+        const memory = parseMemoryType(props.cdkDeployMemoryType);
         const containerPort = parseInt(props.cdkDeployPort);
         const apprunnerService = new apprunner.Service(this, `${props.resourcePrefix}-AppRunner-Service`, {
             cpu: cpu,
