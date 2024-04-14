@@ -14,5 +14,6 @@ declare module NodeJS {
         DATA_INGESTION_API_KEY: string | undefined;
         CPU_TYPE: string | undefined;
         MEMORY_TYPE: string | undefined;
+        VPC_ID: string | undefined;
     }
 }

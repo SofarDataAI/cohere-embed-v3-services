@@ -13,6 +13,8 @@
 
 # Configuring Your Local Environment
 
+You can deploy the stack from the following repository: [AWS VPC Creator](https://github.com/SofarDatas/aws-vpc-creator). After deployment, you can use the VPC_ID obtained from there as an input parameter.
+
 Before running the application locally, you need to configure your environment variables:
 
 1. Copy the `.env.example` file to a new file named `.env` in the same directory.
