@@ -1,3 +1,13 @@
+## 2024-04-14
+
+### Added
+- Added `VPC_ID` to the list of required environment variables in `bin/cohere-embed-v3-services.ts`.
+- Added `vpcId` property to `CohereEmbedV3Services` interface in `lib/CohereEmbedV3ServicesStackProps.ts`.
+- Updated the usage of `CohereEmbedVpcStack` to retrieve VPC using `vpcId` in `lib/cohere-embed-v3-services-stack.ts`.
+- Added `VPC_ID` to `NodeJS.ProcessEnv` interface in `process-env.d.ts`.
+- Added `VPC_ID` to the example environment variables in `.env.example`.
+- Updated the README with instructions on obtaining `VPC_ID` from the AWS VPC Creator repository.
+
 ## 2024-04-13
 
 ### Changed
